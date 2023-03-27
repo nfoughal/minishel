@@ -1,0 +1,42 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/03/20 14:13:11 by nfoughal          #+#    #+#              #
+#    Updated: 2023/03/26 15:50:35 by nfoughal         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = minishell
+CC = CC
+CFLAGS = -Wall -Wextra -Werror
+
+SRC  =  main.c parsing.c utils.c minishell.c env_variable.c mshell_support.c
+
+OBJ = $(SRC:.c=.o)
+
+all: $(NAME)
+
+${NAME} : ${OBJ}
+	${MAKE} -C ./libft bonus
+	${CC} ${CFLAGS} ${OBJ} -lreadline ./libft/libft.a -o ${NAME}
+
+%.o:%.c minishell.h
+	$(CC) -c $(CFLAGS) $< -o $@
+	
+clean:
+	@rm -f $(OBJ)
+	${MAKE} clean -C ./libft
+	${MAKE} clean -C bonus/libft
+
+fclean: clean
+	@rm -f $(NAME)
+	${MAKE} fclean -C ./libft
+	${MAKE} fclean -C bonus/libft
+
+re: fclean all
+
+.PHONY: all clean fclean re

@@ -1,0 +1,23 @@
+total 192
+drwxr-xr-x  22 nfoughal  candidate    748 Mar 26 22:39 .
+drwxr-xr-x  18 nfoughal  candidate    612 Mar 26 22:28 ..
+-rw-r--r--@  1 nfoughal  candidate   6148 Mar 16 22:41 .DS_Store
+drwxr-xr-x   3 nfoughal  candidate    102 Mar 21 22:35 .vscode
+-rw-r--r--   1 nfoughal  candidate   1429 Mar 26 15:50 Makefile
+-rw-r--r--   1 nfoughal  candidate    163 Mar 24 00:04 cmds
+-rw-r--r--   1 nfoughal  candidate    445 Mar 25 00:24 env_variable.c
+-rw-r--r--   1 nfoughal  candidate    972 Mar 26 17:34 env_variable.o
+drwxr-xr-x  83 nfoughal  candidate   2822 Mar 26 18:16 libft
+-rw-r--r--   1 nfoughal  candidate    963 Mar 26 18:16 main.c
+-rw-r--r--   1 nfoughal  candidate   1296 Mar 26 18:16 main.o
+-rwxr-xr-x   1 nfoughal  candidate  18464 Mar 26 18:16 minishell
+-rw-r--r--   1 nfoughal  candidate   4728 Mar 26 17:42 minishell.c
+-rw-r--r--   1 nfoughal  candidate   1912 Mar 26 17:29 minishell.h
+-rw-r--r--   1 nfoughal  candidate   4260 Mar 26 17:42 minishell.o
+-rw-r--r--   1 nfoughal  candidate    693 Mar 26 16:53 mshell_support.c
+-rw-r--r--   1 nfoughal  candidate   1564 Mar 26 17:34 mshell_support.o
+-rw-r--r--   1 nfoughal  candidate      0 Mar 26 22:39 out
+-rw-r--r--   1 nfoughal  candidate   3351 Mar 26 17:34 parsing.c
+-rw-r--r--   1 nfoughal  candidate   3812 Mar 26 17:34 parsing.o
+-rw-r--r--   1 nfoughal  candidate   2621 Mar 24 22:12 utils.c
+-rw-r--r--   1 nfoughal  candidate   3572 Mar 26 17:34 utils.o
