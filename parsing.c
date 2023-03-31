@@ -112,6 +112,8 @@ void check_quotes(char **line, t_list **list, int *trag)
 		else
 			new->trag = TOKEN_SINGLE_OUTE;
 		(*line)++;
+		if(**line == ' ')
+		new->flag = TOKEN_ESPACE;
 	}
 }
 
@@ -122,7 +124,9 @@ void fill_list(char *line, t_list **list)
 	int trag = 0;
 	char *dup;
 	t_list *new;
+	t_list *new1;
 	int cheker;
+	int ifdup = 0;
 	while(*line == ' ')
 		line++;
 	while(*line)
@@ -131,17 +135,21 @@ void fill_list(char *line, t_list **list)
 		dup = str_dup(line);
 		if(dup != NULL)
 		{
-			new = ft_lstnew(dup);
-			ft_lstadd_back(list, new);
+			new1 = ft_lstnew(dup);
+			ft_lstadd_back(list, new1);
 			if(trag != 1)
-				new->trag = TOKEN_WORD;
+				new1->trag = TOKEN_WORD;
 			trag = 0;
+			ifdup = 1;
 		}
 		while(*line != ' ' && *line != '>' && *line != '<' && *line   // ls< her "-la heh" | cat | cat > out | << "GER   DOC" | ls >> out | echo '$PATH' | echo "$TMPDIR"
 				!= '\"' && *line != '\'' && *line != '|' && *line)
 			line++;
 		if(*line == '\"' || *line == '\'')
+		{
 			check_quotes(&line, list, &trag);
+			ifdup = 0;
+		}
 		
 		if(*line == '>' || *line == '<')
 		{
@@ -149,7 +157,7 @@ void fill_list(char *line, t_list **list)
 			{
 				line += 2;
 				flag = 1;
-				trag = 1;
+				// trag = 1;
 			}
 		}
 		if((*line == '>' || *line == '<' || *line == '|') && (flag == 0))
@@ -164,16 +172,23 @@ void fill_list(char *line, t_list **list)
 			else if(*line == '>')
 			{
 				new->trag = TOKEN_GREATER_THAN;
-				trag = 1;
+				// trag = 1;
 			}
 			else if(*line == '<')
 			{
 				new->trag = TOKEN_LESS_THAN;
-				trag = 1;
+				// trag = 1;
 			}
 			line++;
 		}
 		while(*line == ' ')
+		{
 			line++;
+			if(ifdup == 1)
+			{
+				new1->flag = TOKEN_ESPACE;
+				ifdup = 0;
+			}
+		}
 	}
 }

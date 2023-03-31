@@ -6,15 +6,15 @@
 #    By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 14:13:11 by nfoughal          #+#    #+#              #
-#    Updated: 2023/03/26 15:50:35 by nfoughal         ###   ########.fr        #
+#    Updated: 2023/03/29 02:24:08 by nfoughal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = CC
-CFLAGS = -Wall -Wextra -Werror
+#CFLAGS = -Wall -Wextra -Werror
 
-SRC  =  main.c parsing.c utils.c minishell.c env_variable.c mshell_support.c
+SRC  =  main.c parsing.c utils.c minishell.c env_variable.c mshell_support.c 
 
 OBJ = $(SRC:.c=.o)
 

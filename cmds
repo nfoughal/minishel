@@ -1,4 +1,4 @@
-> $PATH | ls -a >> out -l > out2 << heredoc -cb | "ls"''"s" | c""'a'""t | < $USER > $HOME << $USER cat | echo $HOME '$HOME' "$HOME" | echo $USER-123 $"USER"
+> $PATH | ls -a >> out -l > out2 -cb | "ls"''"s" | c""'a'""t | < $USER > $HOME cat | echo $HOME '$HOME' "$HOME" | echo $USER-123 $"USER"
 
 
 

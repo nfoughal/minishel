@@ -1,7 +1,3 @@
-.
-..
-.git
-.vscode
 Makefile
 PATH
 a.out
@@ -18,6 +14,7 @@ minishell.h
 minishell.o
 mshell_support.c
 mshell_support.o
+nfoughal
 out
 parsing.c
 parsing.o

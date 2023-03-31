@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:13:40 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/03/20 16:55:50 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/03/27 17:58:12 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,7 @@ void	ft_putnbr_fd(int n, int fd);
 
 typedef struct s_list
 {
+	int				flag;
 	int 			trag;
 	char			*data;
 	struct s_list	*next;

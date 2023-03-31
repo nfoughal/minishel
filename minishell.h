@@ -14,6 +14,7 @@
 #define TOKEN_HERDOC 7
 #define TOKEN_REDIRECTION 8
 #define TOKEN_WORD_SINGLE_COUT 9
+#define TOKEN_ESPACE 10
 
 typedef struct s_herdoc
 {
@@ -74,4 +75,5 @@ t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile, t_outfile *outfile, 
 void fill_env(char **env, t_env **list_env);
 char *get_current_path(t_env *list_env, char *str);
 char *get_value_from_env(t_env * list_env, char *key);
+char *get_string(t_list **list, t_env *list_env);
 
