@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 21:13:40 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/03/27 17:58:12 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/03/31 17:20:25 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ typedef struct s_list
 {
 	int				flag;
 	int 			trag;
+	int				out_flag;
 	char			*data;
 	struct s_list	*next;
 }	t_list;
