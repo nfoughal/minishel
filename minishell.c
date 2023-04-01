@@ -6,18 +6,30 @@ void fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 	t_herdoc *list_herdoc;
 	t_infile *list_infile;
 	t_outfile *list_outfile;
+	t_outfile *new;
 	list_arg = NULL;
 	list_herdoc = NULL;
 	list_infile = NULL;
 	list_outfile = NULL;
 	t_list *node = list;
 	int herdoc_flag = 0;
+	int flag = 0;
 	while(list)
 	{
 		if(list->next  && (list->trag == TOKEN_GREATER_THAN || list->trag == TOKEN_REDIRECTION))
 		{
-			list = list->next;
-			ft_lstadd_back_outfile(&list_outfile, ft_lstnew_outfile(get_string(&list, list_env, &herdoc_flag)));
+			if(list->trag == TOKEN_REDIRECTION)
+			{
+				list = list->next;
+				new = ft_lstnew_outfile(get_string(&list, list_env, &herdoc_flag));
+				ft_lstadd_back_outfile(&list_outfile, new);
+				new->flag = TOKEN_DOUBLE_RED;
+			}
+			else
+			{
+				list = list->next;
+				ft_lstadd_back_outfile(&list_outfile, ft_lstnew_outfile(get_string(&list, list_env, &herdoc_flag)));
+			}
 
 		}
 		else if(list->next  && (list->trag == TOKEN_LESS_THAN))
@@ -27,9 +39,27 @@ void fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 		}
 		else if(list->next && (list->trag == TOKEN_HERDOC))
 		{
+			
 			herdoc_flag = 1;
+
 			list = list->next;
-			ft_lstadd_back_herdoc(&list_herdoc, ft_lstnew_herdoc(get_string(&list, list_env, &herdoc_flag)));
+			char *line;
+			char *dill = get_string(&list, list_env, &herdoc_flag);
+			int i = 100;
+			int	file;
+			while (access(ft_strjoin("/tmp/herdoc", ft_itoa(i)), F_OK) == 0)
+				i++;
+			file = open(ft_strjoin("/tmp/herdoc", ft_itoa(i)), O_CREAT | O_WRONLY, 0777);
+			
+			while ((line = readline("> ")))
+			{
+				if(ft_strcmp(dill, line) == 0)
+					break;
+				write(file, line, ft_strlen(line));
+				write(file, "\n", 1);
+			}
+			
+			ft_lstadd_back_infile(&list_infile, ft_lstnew_infile(ft_strjoin("/tmp/herdoc", ft_itoa(i))));
 			herdoc_flag = 0;
 		}
 		else

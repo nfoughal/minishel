@@ -1,5 +1,6 @@
 #include<stdio.h>
 #include<unistd.h>
+#include<fcntl.h>
 #include<stdlib.h>
 #include <readline/readline.h>
 #include <readline/history.h>
@@ -15,7 +16,7 @@
 #define TOKEN_REDIRECTION 8
 #define TOKEN_WORD_SINGLE_COUT 9
 #define TOKEN_ESPACE 10
-#define TOKEN_APPEND_OUT 11
+#define TOKEN_DOUBLE_RED 11
 
 typedef struct s_herdoc
 {
@@ -31,6 +32,7 @@ typedef struct s_infile
 
 typedef struct s_outfile
 {
+	int flag;
 	char *data;
 	struct s_outfile *next;
 }t_outfile;

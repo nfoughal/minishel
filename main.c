@@ -22,6 +22,34 @@ void init_myshell(t_myshell *init)
 	init->outfile = NULL;
 }
 
+int check_error(t_list *tokens)
+{
+	int db_q = 0;
+	int sb_q = 0;
+	if (tokens->trag == TOKEN_PIPE)
+		return (printf("Synatx Error\n"));
+	while (tokens)
+	{
+		if (tokens->trag == TOKEN_GREATER_THAN || tokens->trag == TOKEN_LESS_THAN || tokens->trag == TOKEN_PIPE || tokens->trag == TOKEN_HERDOC || tokens->trag == TOKEN_REDIRECTION)
+		{
+			if (!tokens->next)
+				return (printf("Synatx Error\n"));
+			else if (tokens->next->trag != TOKEN_WORD && tokens->next->trag != TOKEN_DOUBLE_OUTE && tokens->next->trag != TOKEN_SINGLE_OUTE)
+				return (printf("Synatx Error\n"));
+			
+		}
+		if (tokens->trag == TOKEN_DOUBLE_OUTE)
+			db_q++;
+		if (tokens->trag == TOKEN_SINGLE_OUTE)
+			sb_q++;
+		tokens = tokens->next;
+	}
+
+	if (sb_q % 2 != 0 || db_q % 2 != 0)
+		return (printf("Synatx Error\n"));
+	return 0;
+}
+
 int main(int ac, char **av, char **env)
 {
 	t_list *list;
@@ -40,6 +68,8 @@ int main(int ac, char **av, char **env)
 		char  *line = readline("myshell> ");
 		add_history(line);
 		fill_list(line, &list);
+		if (check_error(list) != 0)
+			continue;
 		node = list;
 		fill_clean_list(list, &c_list, list_env);
 		while((c_list))
@@ -56,7 +86,7 @@ int main(int ac, char **av, char **env)
 			}
 			while((c_list)->outfile)
 			{
-				printf("outfile==> %s\n", (c_list)->outfile->data);
+				printf("outfile==> %s *** %d\n", (c_list)->outfile->data, (c_list)->outfile->flag);
 				(c_list)->outfile = (c_list)->outfile->next;
 			}
 			while((c_list)->herdoc)
@@ -67,7 +97,7 @@ int main(int ac, char **av, char **env)
 			printf("|/////////////////////////////////////////////////////////|\n");
 				(c_list) = (c_list)->next;
 		}
-		// printf("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
+		printf("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
 		// while(list)
 		// {
 		// 	printf("%s ==> %d ***> %d ++++++> %d \n", list->data, list->trag, list->flag, list->out_flag);

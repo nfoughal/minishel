@@ -66,5 +66,6 @@ char *get_string(t_list **list, t_env *list_env, int *herdoc_flag)
 	}
 	if ((*list) && ((*list)->trag == TOKEN_SINGLE_OUTE || (*list)->trag == TOKEN_DOUBLE_OUTE))
 		(*list) = (*list)->next;
+	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ %s \n", string);
 	return (string);
 }
