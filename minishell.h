@@ -1,3 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   minishell.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/04/01 17:23:41 by nfoughal          #+#    #+#             */
+/*   Updated: 2023/04/02 02:53:16 by nfoughal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#ifndef MINISHELL_H
+#define MINISHELL_H
+
 #include<stdio.h>
 #include<unistd.h>
 #include<fcntl.h>
@@ -17,6 +32,13 @@
 #define TOKEN_WORD_SINGLE_COUT 9
 #define TOKEN_ESPACE 10
 #define TOKEN_DOUBLE_RED 11
+
+typedef struct s_all_list
+{
+	t_arg		*list_arg;
+	t_infile	*list_infile;
+	t_outfile	*list_outfile;
+}t_all_list;
 
 typedef struct s_herdoc
 {
@@ -59,24 +81,39 @@ typedef struct s_env
 	struct s_env *next; 
 }t_env;
 
-void fill_list(char *line, t_list **list);
-int	ft_strcmp(const char *s1, const char *s2);
-void init_myshell(t_myshell *init);
-void fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env);
-void	ft_lstadd_back_args(t_arg **lst, t_arg *new);
-void	ft_lstadd_back_outfile(t_outfile **lst, t_outfile *new);
-void	ft_lstadd_back_infile(t_infile **lst, t_infile *new);
-void	ft_lstadd_back_herdoc(t_herdoc **lst, t_herdoc *new);
-void	ft_lstadd_back_myshell(t_myshell **lst, t_myshell *new);
-void	ft_lstadd_back_env(t_env **lst, t_env *new);
-t_env	*ft_lstnew_env(char *key, char *value);
-t_arg	*ft_lstnew_args(char *data);
+void		fill_list(char *line, t_list **list);
+int			ft_strcmp(const char *s1, const char *s2);
+void		init_myshell(t_myshell *init);
+void		fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env);
+void		ft_lstadd_back_args(t_arg **lst, t_arg *new);
+void		ft_lstadd_back_outfile(t_outfile **lst, t_outfile *new);
+void		ft_lstadd_back_infile(t_infile **lst, t_infile *new);
+void		ft_lstadd_back_herdoc(t_herdoc **lst, t_herdoc *new);
+void		ft_lstadd_back_myshell(t_myshell **lst, t_myshell *new);
+void		ft_lstadd_back_env(t_env **lst, t_env *new);
+t_env		*ft_lstnew_env(char *key, char *value);
+t_arg		*ft_lstnew_args(char *data);
 t_outfile	*ft_lstnew_outfile(char *data);
 t_infile	*ft_lstnew_infile(char *data);
 t_herdoc	*ft_lstnew_herdoc(char *data);
-t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile, t_outfile *outfile, t_herdoc *herdoc);
-void fill_env(char **env, t_env **list_env);
-char *get_current_path(t_env *list_env, char *str);
-char *get_value_from_env(t_env * list_env, char *key);
-char *get_string(t_list **list, t_env *list_env, int *herdoc_flag);
+t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile, t_outfile *outfile);
+void		fill_env(char **env, t_env **list_env);
+char		*get_current_path(t_env *list_env, char *str);
+char		*get_value_from_env(t_env *list_env, char *key);
+char		*get_string(t_list **list, t_env *list_env, int herdoc_flag);
+int			herdoc_check(char *line, t_list **list);
+int			ft_line(char *line);
+int			between_q_count(char **line);
+void		fill_cout(char **line, t_list **list, int j);
+void		check_quotes(char **line, t_list **list);
+void		list_dup(char *line, t_list **list, int *ifdup, t_list **new1);
+void		if_herdoc_valid(char **line, t_list **list, int *flag);
+void		fill_tokens(t_list **list, char **line);
+void		skeep_spaces(char **line, t_list **new1, int *ifdup);
+char		*str_dup(char *line);
+void		fill_outfile_list(t_outfile **list_outfile, t_list **list, t_env *list_env);
 
+
+
+
+#endif

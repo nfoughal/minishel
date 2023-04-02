@@ -38,7 +38,7 @@ char *get_current_path(t_env *list_env, char *str)
 }
 
 
-char *get_string(t_list **list, t_env *list_env, int *herdoc_flag)
+char *get_string(t_list **list, t_env *list_env, int herdoc_flag)
 {
 	
 	char *string;
@@ -50,15 +50,15 @@ char *get_string(t_list **list, t_env *list_env, int *herdoc_flag)
 	{
 		if ((*list)->trag == TOKEN_WORD_SINGLE_COUT)
 			string = ft_strjoin(string, (*list)->data);
-		else if ((*list)->trag == TOKEN_WORD && *herdoc_flag != 1)
+		else if ((*list)->trag == TOKEN_WORD && herdoc_flag != 1)
 			string = ft_strjoin(string, get_current_path(list_env, (*list)->data));
-		else if ((*list)->trag == TOKEN_WORD && *herdoc_flag == 1)
+		else if ((*list)->trag == TOKEN_WORD && herdoc_flag == 1)
 			string = ft_strjoin(string, (*list)->data);
 		(*list) = (*list)->next;
 	}
 	if ((*list) && (*list)->flag == TOKEN_ESPACE && (*list)->trag == TOKEN_WORD)
 	{
-		if(*herdoc_flag != 1)
+		if(herdoc_flag != 1)
 			string = ft_strjoin(string, get_current_path(list_env, (*list)->data));
 		else
 			string = ft_strjoin(string, (*list)->data);
@@ -66,6 +66,5 @@ char *get_string(t_list **list, t_env *list_env, int *herdoc_flag)
 	}
 	if ((*list) && ((*list)->trag == TOKEN_SINGLE_OUTE || (*list)->trag == TOKEN_DOUBLE_OUTE))
 		(*list) = (*list)->next;
-	printf("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ %s \n", string);
 	return (string);
 }

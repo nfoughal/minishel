@@ -10,9 +10,8 @@ void fill_env(char **env, t_env **list_env)
 		j = 0;
 		while(env[i][j] != '=')
 			j++;
-		ft_substr(env[i], 0, j);
 		k = j + 1;
-		ft_lstadd_back_env(list_env, ft_lstnew_env(ft_substr(env[i], 0, j), (env[i] + k)));
+		ft_lstadd_back_env(list_env, ft_lstnew_env(ft_substr(env[i], 0, j), ft_strdup(env[i] + k)));
 		i++;
 	}
 	// while(list_env)

@@ -1,20 +1,35 @@
 #include "minishell.h"
 
-void free_list()
+void free_list(t_list *list)
 {
-		// node = list;
-		// free(line);
-		// while (list)
-		// {
-		// 	node = list->next;
-		// 	free(list->data);
-		// 	list->data = NULL;
-		// 	free(list);
-		// 	list = NULL;
-		// 	list = node;
-		// }
-
+	t_list *node;
+	while (list)
+	{
+		node = list->next;
+		free(list->data);
+		list->data = NULL;
+		free(list);
+		list = NULL;
+		list = node;
+	}
 }
+void free_env_list(t_env *list)
+{
+	t_env *node;
+	while (list)
+	{
+		node = list->next;
+		free(list->key);
+		free(list->value);
+		list->key = NULL;
+		list->value = NULL;
+		free(list);
+		list = NULL;
+		list = node;
+	}
+}
+
+
 void init_myshell(t_myshell *init)
 {
 	init->args = NULL;
@@ -30,13 +45,15 @@ int check_error(t_list *tokens)
 		return (printf("Synatx Error\n"));
 	while (tokens)
 	{
-		if (tokens->trag == TOKEN_GREATER_THAN || tokens->trag == TOKEN_LESS_THAN || tokens->trag == TOKEN_PIPE || tokens->trag == TOKEN_HERDOC || tokens->trag == TOKEN_REDIRECTION)
+		if (tokens->trag == TOKEN_GREATER_THAN || tokens->trag == TOKEN_LESS_THAN 
+		|| tokens->trag == TOKEN_HERDOC || tokens->trag == TOKEN_REDIRECTION)
 		{
 			if (!tokens->next)
 				return (printf("Synatx Error\n"));
-			else if (tokens->next->trag != TOKEN_WORD && tokens->next->trag != TOKEN_DOUBLE_OUTE && tokens->next->trag != TOKEN_SINGLE_OUTE)
+			else if (tokens->next->trag != TOKEN_WORD 
+			&& tokens->next->trag != TOKEN_DOUBLE_OUTE 
+			&& tokens->next->trag != TOKEN_SINGLE_OUTE)
 				return (printf("Synatx Error\n"));
-			
 		}
 		if (tokens->trag == TOKEN_DOUBLE_OUTE)
 			db_q++;
@@ -49,16 +66,20 @@ int check_error(t_list *tokens)
 		return (printf("Synatx Error\n"));
 	return 0;
 }
-
+void free_fun(void)
+{
+	system("leaks minishell");
+}
 int main(int ac, char **av, char **env)
 {
+	atexit(free_fun);
 	t_list *list;
 		list = NULL;
 	t_myshell *c_list;
 	t_env *list_env;
 	list_env = NULL;
 	t_list *node;
-		//node = list;
+	node = list;
 	(void)ac;
 	(void)av;
 	while (1)
@@ -97,12 +118,15 @@ int main(int ac, char **av, char **env)
 			printf("|/////////////////////////////////////////////////////////|\n");
 				(c_list) = (c_list)->next;
 		}
-		printf("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
+		// printf("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&\n");
 		// while(list)
 		// {
 		// 	printf("%s ==> %d ***> %d ++++++> %d \n", list->data, list->trag, list->flag, list->out_flag);
 		// 	list = list->next;
 		// }
+	free(line);
+	free_list(list);
+	// free_env_list(list_env);  //!!!!!! segfault
 	}
 	return(0);
 }

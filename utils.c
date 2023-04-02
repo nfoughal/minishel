@@ -147,7 +147,7 @@ void	ft_lstadd_back_myshell(t_myshell **lst, t_myshell *new)
 	}
 }
 
-t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile, t_outfile *outfile, t_herdoc *herdoc)
+t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile, t_outfile *outfile)
 {
 	t_myshell	*a;
 
@@ -157,7 +157,6 @@ t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile, t_outfile *outfile, 
 	a->args = args;
 	a->infile = infile;
 	a->outfile = outfile;
-	a->herdoc = herdoc;
 	a->next = NULL;
 	return (a);
 }
