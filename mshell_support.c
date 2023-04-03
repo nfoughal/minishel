@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:47:31 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/03 03:44:31 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:56:21 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ char	*get_current_path(t_env *list_env, char *str, int i)
 		result = ft_strjoin(f, get_value_from_env(list_env, value));
 		free(str);
 		str = ft_strjoin(result, e);
-		free(e);
-		free(f);
-		free(value);
-		free(result);
+		free_all(e, f, value, result);
 	}
 	return (str);
 }
@@ -68,7 +65,7 @@ int herdoc_flag, char *string)
 	}
 	else if ((*list)->trag == TOKEN_WORD && herdoc_flag != 1)
 	{
-		path = get_current_path(list_env, ft_strdup((*list)->data), i);
+		path = get_current_path(list_env, ft_strdup((*list)->data), i = 0);
 		string = ft_strjoin(string, path);
 		free(path);
 		free(str_tmp);
@@ -77,7 +74,6 @@ int herdoc_flag, char *string)
 	{
 		string = ft_strjoin(string, (*list)->data);
 		free(str_tmp);
-		//free((*list)->data);
 	}
 	(*list) = (*list)->next;
 	return (string);
@@ -92,7 +88,7 @@ char	*part_2(t_list **list, char *string, int herdoc_flag, t_env *list_env)
 	str_tmp = string;
 	if (herdoc_flag != 1)
 	{
-		path = get_current_path(list_env, ft_strdup((*list)->data), i);
+		path = get_current_path(list_env, ft_strdup((*list)->data), i = 0);
 		string = ft_strjoin(string, path);
 		free(path);
 		free(str_tmp);
@@ -109,8 +105,6 @@ char	*part_2(t_list **list, char *string, int herdoc_flag, t_env *list_env)
 char	*get_string(t_list **list, t_env *list_env, int herdoc_flag)
 {	
 	char	*string;
-	char	*path;
-	int		i;
 
 	string = ft_strdup("");
 	while ((*list) && (*list)->trag != 1 && (*list)->flag != 10

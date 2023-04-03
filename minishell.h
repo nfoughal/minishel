@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:23:41 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/03 03:42:10 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/03 17:41:27 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft/libft.h" 
-# include "get_next_line/get_next_line.h" 
 
 # define TOKEN_PIPE 1
 # define TOKEN_SINGLE_OUTE 2
@@ -116,5 +115,8 @@ void		free_outfile_list(t_outfile *list);
 void		free_infile_list(t_infile *list);
 void		free_env_list(t_env *list);
 void		free_shell(t_myshell *list);
-
+void		free_all(char *e, char *f, char *value, char *result);
+int			check_next(t_list *tokens);
+int			token_loop(t_list *tokens, char *line, int *db_q, int *sb_q);
+int			check_error(t_list *tokens, char *line);
 #endif

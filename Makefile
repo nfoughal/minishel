@@ -6,16 +6,16 @@
 #    By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/03/20 14:13:11 by nfoughal          #+#    #+#              #
-#    Updated: 2023/04/03 01:31:49 by nfoughal         ###   ########.fr        #
+#    Updated: 2023/04/03 17:49:58 by nfoughal         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 CC = CC
-#CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror
 
 SRC  =  main.c parsing.c utils.c minishell.c env_variable.c mshell_support.c parsing_support.c \
-		main_parsing.c utils1.c utils2.c get_next_line/get_next_line.c get_next_line/get_next_line_utils.c
+		main_parsing.c utils1.c utils2.c free.c free2.c
 
 OBJ = $(SRC:.c=.o)
 
