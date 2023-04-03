@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:46:39 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/02 02:54:58 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/03 03:07:56 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	fill_file(int file, char *dill)
 	line = readline("> ");
 	while (line)
 	{
-		if (ft_strcmp(dill, line) == 0)
+		if (ft_strncmp(dill, line, (ft_strlen(line) - 1)) == 0)
 		{
 			free(line);
 			break ;
@@ -54,7 +54,6 @@ void	fill_file(int file, char *dill)
 void	fill_herdoc_file(t_list **list, t_infile **list_infile,
 t_env *list_env, int i)
 {
-	char	*line;
 	char	*dill;
 	char	*itoa_s;
 	char	*join_s;
@@ -79,22 +78,23 @@ t_env *list_env, int i)
 	fill_file(file, dill);
 	ft_lstadd_back_infile(list_infile, ft_lstnew_infile(join_s));
 	free(itoa_s);
+	free(dill);
 }
 
-void	fill_myshell(t_list **list, t_arg **list_arg, t_infile **list_infile, t_outfile **list_outfile, t_myshell **c_list)
+void	fill_myshell(t_list **list, t_all_list *pp, t_myshell **c_list)
 {
 	ft_lstadd_back_myshell(c_list,
-		ft_lstnew_myshell(*list_arg, *list_infile, *list_outfile));
-	(*list_arg) = NULL;
-	(*list_infile) = NULL;
-	(*list_outfile) = NULL;
-	if(*list)
+		ft_lstnew_myshell(pp->list_arg, pp->list_infile, pp->list_outfile));
+	(pp->list_arg) = NULL;
+	(pp->list_infile) = NULL;
+	(pp->list_outfile) = NULL;
+	if (*list)
 		(*list) = (*list)->next;
 }
 
 void	fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 {
-	t_all_list  pp;
+	t_all_list	pp;
 	int			i;
 
 	pp.list_arg = NULL;
@@ -104,19 +104,19 @@ void	fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 	{
 		if (list->next && (list->trag == TOKEN_GREATER_THAN
 				|| list->trag == TOKEN_REDIRECTION))
-			fill_outfile_list(&list_outfile, &list, list_env);
+			fill_outfile_list(&pp.list_outfile, &list, list_env);
 		else if (list->next && (list->trag == TOKEN_LESS_THAN))
 		{
 			list = list->next;
-			ft_lstadd_back_infile(&list_infile,
+			ft_lstadd_back_infile(&pp.list_infile,
 				ft_lstnew_infile(get_string(&list, list_env, 0)));
 		}
 		else if (list->next && (list->trag == TOKEN_HERDOC))
-			fill_herdoc_file(&list, &list_infile, list_env, i);
+			fill_herdoc_file(&list, &pp.list_infile, list_env, i);
 		else
-			ft_lstadd_back_args(&list_arg,
+			ft_lstadd_back_args(&pp.list_arg,
 				ft_lstnew_args(get_string(&list, list_env, 0)));
 		if (list == NULL || list->trag == TOKEN_PIPE)
-			fill_myshell(&list, &list_arg, &list_infile, &list_outfile, c_list);
+			fill_myshell(&list, &pp, c_list);
 	}
 }
