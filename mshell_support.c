@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 15:47:31 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/03 17:56:21 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:07:45 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,15 +30,16 @@ char	*get_current_path(t_env *list_env, char *str, int i)
 	char	*e;
 	char	*result;
 	char	*value;
-
-	i = 0;
+	
 	while (ft_strchr(str, '$'))
 	{
 		while (str[i] != '$')
 		i++;
 		f = ft_substr(str, 0, i);
-		save = ++i;
-		while (str[i++] && (ft_isalnum(str[i++]) || str[i++] == '_'))
+		while(str[i] == '$')
+			i++;
+		save = i;
+		while (str[i] && (ft_isalnum(str[i]) || str[i] == '_'))
 			i++;
 		e = ft_substr(str + i, 0, ft_strlen(str) - i);
 		value = ft_substr(str, save, i - save);

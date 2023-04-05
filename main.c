@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:41:58 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/03 17:48:07 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/04 18:10:50 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,14 @@ int	check_error(t_list *tokens, char *line)
 	return (0);
 }
 
+
+void fun_123(void)
+{
+	system("leaks minishell");
+}
 int	main(int ac, char **av, char **env)
 {
+	atexit(fun_123);
 	t_list		*list;
 	t_myshell	*c_list;
 	t_env		*list_env;
@@ -101,6 +107,26 @@ int	main(int ac, char **av, char **env)
 			continue ;
 		fill_env(env, &list_env);
 		fill_clean_list(list, &c_list, list_env);
+		while((c_list))
+{
+	while((c_list)->args)
+	{
+		printf("args==> %s\n", (c_list)->args->data);
+		(c_list)->args = (c_list)->args->next;
+	}
+	while((c_list)->infile)
+	{
+		printf("infile==> %s\n", (c_list)->infile->data);
+		(c_list)->infile = (c_list)->infile->next;
+	}
+	while((c_list)->outfile)
+	{
+		printf("outfile==> %s *** %d\n", (c_list)->outfile->data, (c_list)->outfile->flag);
+		(c_list)->outfile = (c_list)->outfile->next;
+	}
+	printf("|/////////////////////////////////////////////////////////|\n");
+		(c_list) = (c_list)->next;
+}
 		free(line);
 		free_list(list);
 		free_env_list(list_env);
