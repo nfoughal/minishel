@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:23:41 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 01:27:09 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 23:04:31 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,14 @@
 
 typedef struct s_infile
 {
+	int				number;
 	char			*data;
 	struct s_infile	*next;
 }t_infile;
 
 typedef struct s_outfile
 {
+	int					number;
 	int					flag;
 	char				*data;
 	struct s_outfile	*next;
@@ -94,13 +96,20 @@ typedef struct s_all_list
 	int			oldstr_len;
 	int			sub_len;
 	int			repp_len;
+	int			flag;
+	int			j;
+	t_infile	*new;
 }t_all_list;
 
 typedef struct s_vb
 {
 	t_list	*freeable;
 	int		n_iterations;
+	int		i;
 }t_g_vb;
+
+t_g_vb	g_test;
+
 
 void		fill_list(char *line, t_list **list);
 int			ft_strcmp(const char *s1, const char *s2);
@@ -123,7 +132,7 @@ char		*get_value_from_env(t_env *list_env, char *key);
 char		*get_string(t_list **list, t_env *list_env, int herdoc_flag);
 int			herdoc_check(char *line, t_list **list);
 int			ft_line(char *line);
-int			between_q_count(char **line);
+int			between_q_count(char **line, int flag);
 void		fill_cout(char **line, t_list **list, int j);
 void		check_quotes(char **line, t_list **list);
 void		list_dup(char *line, t_list **list, int *ifdup, t_list **new1);
@@ -157,5 +166,6 @@ char		*get_string_len(char *str);
 char		*data_replace(char *result, char *str, t_env *env);
 void		free_main(char *line, t_list *list,
 				t_env *list_env, t_myshell *c_list);
+void		fill_s(char **line, t_all_list *pp);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:46:23 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 02:15:47 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 21:48:50 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,28 @@ char	*str_dup(char *line)
 	return (p);
 }
 
-int	between_q_count(char **line)
+int	between_q_count(char **line, int flag)
 {
 	int	count;
 	int	i;
 
 	count = 0;
 	i = 0;
-	while ((*line)[i] && ((*line)[i] != '\"' || (*line)[i] != '\''))
+	if (flag == 1)
 	{
-		i++;
-		count++;
+		while ((*line)[i] && ((*line)[i] != '\"'))
+		{
+			i++;
+			count++;
+		}
+	}
+	else
+	{
+		while ((*line)[i] && ((*line)[i] != '\''))
+		{
+			i++;
+			count++;
+		}
 	}
 	return (count);
 }

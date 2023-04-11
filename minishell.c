@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:46:39 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/09 22:42:29 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 23:05:52 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	fill_outfile_list(t_outfile **list_outfile,
 t_list **list, t_env *list_env)
 {
 	t_outfile	*new;
+	t_outfile	*new2;
 
 	if ((*list)->trag == TOKEN_REDIRECTION)
 	{
@@ -23,12 +24,14 @@ t_list **list, t_env *list_env)
 		new = ft_lstnew_outfile(get_string(list, list_env, 0));
 		ft_lstadd_back_outfile(list_outfile, new);
 		new->flag = TOKEN_DOUBLE_RED;
+		new->number = g_test.i++;
 	}
 	else
 	{
 		(*list) = (*list)->next;
-		ft_lstadd_back_outfile(list_outfile,
-			ft_lstnew_outfile(get_string(list, list_env, 0)));
+		new2 = ft_lstnew_outfile(get_string(list, list_env, 0));
+		ft_lstadd_back_outfile(list_outfile, new2);
+		new2->number = g_test.i++;
 	}
 }
 
@@ -96,7 +99,6 @@ void	fill_myshell(t_list **list, t_all_list *pp, t_myshell **c_list)
 void	fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 {
 	t_all_list	pp;
-	int			i;
 
 	pp.list_arg = NULL;
 	pp.list_infile = NULL;
@@ -109,11 +111,12 @@ void	fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 		else if (list->next && (list->trag == TOKEN_LESS_THAN))
 		{
 			list = list->next;
-			ft_lstadd_back_infile(&pp.list_infile,
-				ft_lstnew_infile(get_string(&list, list_env, 0)));
+			pp.new = ft_lstnew_infile(get_string(&list, list_env, 0));
+			ft_lstadd_back_infile(&pp.list_infile, pp.new);
+			pp.new->number = g_test.i++;
 		}
 		else if (list->next && (list->trag == TOKEN_HERDOC))
-			fill_herdoc_file(&list, &pp.list_infile, list_env, i = 0);
+			fill_herdoc_file(&list, &pp.list_infile, list_env, 0);
 		else
 			ft_lstadd_back_args(&pp.list_arg,
 				ft_lstnew_args(get_string(&list, list_env, 0)));

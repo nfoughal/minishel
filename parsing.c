@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:23:02 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 02:14:22 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 21:57:20 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,18 +16,16 @@ void	check_quotes(char **line, t_list **list)
 {
 	t_all_list	pp;
 
+	if (**line == '\"')
+		pp.flag = 1;
+	else
+		pp.flag = 0;
 	fill_cout(line, list, 0);
-	pp.i = between_q_count(line);
+	pp.i = between_q_count(line, pp.flag);
 	pp.s = malloc(sizeof(char) * (pp.i + 1));
 	if (!pp.s)
 		return ;
-	pp.i = 0;
-	while ((**line) && (**line != '\"' && **line != '\''))
-	{
-		pp.s[pp.i++] = **line;
-		(*line)++;
-	}
-	pp.s[pp.i] = '\0';
+	fill_s(line, &pp);
 	pp.new = ft_lstnew(pp.s);
 	ft_lstadd_back(list, pp.new);
 	if (**line == '\"')
