@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/03 16:43:03 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/03 16:43:59 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 01:18:11 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,13 @@ void	free_all(char *e, char *f, char *value, char *result)
 	free(f);
 	free(value);
 	free(result);
+}
+
+void	free_main(char *line, t_list *list, t_env *list_env, t_myshell *c_list)
+{
+	free_list_joiner();
+	free(line);
+	free_list(list);
+	free_env_list(list_env);
+	free_shell(c_list);
 }

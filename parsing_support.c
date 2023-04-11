@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parcing_support.c                                  :+:      :+:    :+:   */
+/*   parsing_support.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:46:23 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/01 17:46:41 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 02:15:47 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	ft_line(char *line)
 	int	i;
 
 	i = 0;
-	while (line[i] != ' ' && line[i] != '>' && line[i] != '<' && line[i]
-		!= '\"' && line[i] != '\'' && line[i] != '|' && line[i])
+	while (line[i] != ' ' && line[i] != '\t' && line[i] != '>' && line[i] != '<'
+		&& line[i] != '\"' && line[i] != '\'' && line[i] != '|' && line[i])
 			i++;
 	return (i);
 }
@@ -107,7 +107,7 @@ void	fill_cout(char **line, t_list **list, int j)
 	(*line)++;
 	if (j == 1)
 	{
-		if (**line == ' ')
+		if (**line == ' ' || **line == '\t')
 		new->flag = TOKEN_ESPACE;
 	}
 }

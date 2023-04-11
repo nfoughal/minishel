@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:23:41 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/04 17:46:27 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 01:27:09 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define TOKEN_WORD_SINGLE_COUT 9
 # define TOKEN_ESPACE 10
 # define TOKEN_DOUBLE_RED 11
+# define TOKEN_WORD_DOUBLE_COUT 12
 
 typedef struct s_infile
 {
@@ -72,7 +73,34 @@ typedef struct s_all_list
 	t_arg		*list_arg;
 	t_infile	*list_infile;
 	t_outfile	*list_outfile;
+	t_list		*new_list;
+	t_list		*old_next;
+	t_list		*new;
+	int			save;
+	char		*f;
+	char		*e;
+	char		*result;
+	char		*value;
+	int			b;
+	int			len;
+	char		*s;
+	int			i;
+	char		*string;
+	char		*ret;
+	char		*re;
+	char		*strstr_re;
+	char		*p;
+	char		*oldstr;
+	int			oldstr_len;
+	int			sub_len;
+	int			repp_len;
 }t_all_list;
+
+typedef struct s_vb
+{
+	t_list	*freeable;
+	int		n_iterations;
+}t_g_vb;
 
 void		fill_list(char *line, t_list **list);
 int			ft_strcmp(const char *s1, const char *s2);
@@ -90,7 +118,7 @@ t_infile	*ft_lstnew_infile(char *data);
 t_myshell	*ft_lstnew_myshell(t_arg *args, t_infile *infile,
 				t_outfile *outfile);
 void		fill_env(char **env, t_env **list_env);
-char		*get_current_path(t_env *list_env, char *str, int i);
+char		*get_current_path(t_env *list_env, char *str, int i, int trag);
 char		*get_value_from_env(t_env *list_env, char *key);
 char		*get_string(t_list **list, t_env *list_env, int herdoc_flag);
 int			herdoc_check(char *line, t_list **list);
@@ -105,7 +133,7 @@ void		skeep_spaces(char **line, t_list **new1, int *ifdup);
 char		*str_dup(char *line);
 void		fill_outfile_list(t_outfile **list_outfile,
 				t_list **list, t_env *list_env);
-void		fill_file(int file, char *dill);
+void		fill_file(int file, char *dill, t_env *env);
 void		fill_herdoc_file(t_list **list, t_infile **list_infile,
 				t_env *list_env, int i);
 void		fill_myshell(t_list **list, t_all_list *pp, t_myshell **c_list);
@@ -119,4 +147,15 @@ void		free_all(char *e, char *f, char *value, char *result);
 int			check_next(t_list *tokens);
 int			token_loop(t_list *tokens, char *line, int *db_q, int *sb_q);
 int			check_error(t_list *tokens, char *line);
+void		free_list_joiner(void);
+void		fill_new_list(t_all_list *pp, char **splited, t_list **list);
+void		list_joine(t_list **list, t_env *list_env);
+void		fill_p(t_all_list *pp, char *str_repp);
+char		*string_replace(char *string, char *sub, char *str_repp);
+int			if_valid_char(char c);
+char		*get_string_len(char *str);
+char		*data_replace(char *result, char *str, t_env *env);
+void		free_main(char *line, t_list *list,
+				t_env *list_env, t_myshell *c_list);
+
 #endif

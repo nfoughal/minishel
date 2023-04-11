@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:23:02 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/01 17:50:57 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 02:14:22 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 
 void	check_quotes(char **line, t_list **list)
 {
-	t_list	*new;
-	char	*s;
-	int		i;
+	t_all_list	pp;
 
-	i = 0;
 	fill_cout(line, list, 0);
-	i = between_q_count(line);
-	s = malloc(sizeof(char) * (i + 1));
-	if (!s)
+	pp.i = between_q_count(line);
+	pp.s = malloc(sizeof(char) * (pp.i + 1));
+	if (!pp.s)
 		return ;
-	i = 0;
+	pp.i = 0;
 	while ((**line) && (**line != '\"' && **line != '\''))
 	{
-		s[i++] = **line;
+		pp.s[pp.i++] = **line;
 		(*line)++;
 	}
-	s[i] = '\0';
-	new = ft_lstnew(s);
-	ft_lstadd_back(list, new);
+	pp.s[pp.i] = '\0';
+	pp.new = ft_lstnew(pp.s);
+	ft_lstadd_back(list, pp.new);
 	if (**line == '\"')
-	new->trag = TOKEN_WORD;
+	{
+		pp.new->double_cout = TOKEN_WORD_DOUBLE_COUT;
+		pp.new->trag = TOKEN_WORD;
+	}
 	if (**line == '\'')
-		new->trag = TOKEN_WORD_SINGLE_COUT;
+		pp.new->trag = TOKEN_WORD_SINGLE_COUT;
 	if (**line == '\"' || **line == '\'')
 		fill_cout(line, list, 1);
 }
@@ -90,7 +90,7 @@ void	fill_tokens(t_list **list, char **line)
 
 void	skeep_spaces(char **line, t_list **new1, int *ifdup)
 {
-	while (**line == ' ')
+	while (**line == ' ' || **line == '\t')
 	{
 		(*line)++;
 		if (*ifdup == 1)

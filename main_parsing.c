@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:49:40 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/01 17:51:01 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 02:13:38 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,14 +19,14 @@ void	fill_list(char *line, t_list **list)
 	int		ifdup;
 
 	ifdup = 0;
-	while (*line == ' ')
+	while (*line == ' ' || *line == '\t')
 		line++;
 	while (*line)
 	{
 		flag = 0;
 		list_dup(line, list, &ifdup, &new1);
 		while (*line != ' ' && *line != '>' && *line != '<' && *line
-			!= '\"' && *line != '\'' && *line != '|' && *line)
+			!= '\"' && *line != '\'' && *line != '|' && *line && *line != '\t')
 			line++;
 		if (*line == '\"' || *line == '\'')
 		{

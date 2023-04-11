@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:46:39 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/03 17:52:49 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/09 22:42:29 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_list **list, t_env *list_env)
 	}
 }
 
-void	fill_file(int file, char *dill)
+void	fill_file(int file, char *dill, t_env *env)
 {
 	char	*line;
 
@@ -44,6 +44,7 @@ void	fill_file(int file, char *dill)
 			free(line);
 			break ;
 		}
+		line = get_current_path(env, line, 0, 0);
 		write(file, line, ft_strlen(line));
 		write(file, "\n", 1);
 		free(line);
@@ -75,7 +76,7 @@ t_env *list_env, int i)
 	file = open(join_s, O_CREAT | O_WRONLY, 0777);
 	if (file == -1)
 		return ;
-	fill_file(file, dill);
+	fill_file(file, dill, list_env);
 	ft_lstadd_back_infile(list_infile, ft_lstnew_infile(join_s));
 	free(itoa_s);
 	free(dill);
