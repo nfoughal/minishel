@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/11 00:17:04 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 01:06:41 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/12 01:59:51 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ char	*string_replace(char *string, char *sub, char *str_repp)
 	if (!str_repp)
 		str_repp = "";
 	pp.strstr_re = ft_strnstr(pp.p, sub, ft_strlen(pp.p));
-	while (pp.strstr_re)
+	if (pp.strstr_re)
 	{
 		fill_p(&pp, str_repp);
 		pp.strstr_re = ft_strnstr(pp.p, sub, ft_strlen(pp.p));

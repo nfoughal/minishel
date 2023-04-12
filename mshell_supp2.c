@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/09 18:02:33 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 01:24:24 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/12 01:56:46 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ char	*get_current_path(t_env *env, char *str, int i, int trag)
 	while (str && ft_strchr(str, '$') && trag != TOKEN_WORD_SINGLE_COUT)
 	{
 		str = ft_strchr(str, '$');
-		if (if_valid_char(str[1]))
+		if (ft_isalpha(*(str + 1)) || *(str + 1) == '_')
 		result = data_replace(result, str, env);
 		str++;
 	}
