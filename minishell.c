@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/02 01:46:39 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 23:05:52 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 23:48:32 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,9 +111,9 @@ void	fill_clean_list(t_list *list, t_myshell **c_list, t_env *list_env)
 		else if (list->next && (list->trag == TOKEN_LESS_THAN))
 		{
 			list = list->next;
-			pp.new = ft_lstnew_infile(get_string(&list, list_env, 0));
-			ft_lstadd_back_infile(&pp.list_infile, pp.new);
-			pp.new->number = g_test.i++;
+			pp.new1 = ft_lstnew_infile(get_string(&list, list_env, 0));
+			ft_lstadd_back_infile(&pp.list_infile, pp.new1);
+			pp.new1->number = g_test.i++;
 		}
 		else if (list->next && (list->trag == TOKEN_HERDOC))
 			fill_herdoc_file(&list, &pp.list_infile, list_env, 0);

@@ -6,7 +6,7 @@
 /*   By: nfoughal <nfoughal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/01 17:23:41 by nfoughal          #+#    #+#             */
-/*   Updated: 2023/04/11 23:04:31 by nfoughal         ###   ########.fr       */
+/*   Updated: 2023/04/11 23:48:34 by nfoughal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ typedef struct s_all_list
 	int			repp_len;
 	int			flag;
 	int			j;
-	t_infile	*new;
+	t_infile	*new1;
 }t_all_list;
 
 typedef struct s_vb
